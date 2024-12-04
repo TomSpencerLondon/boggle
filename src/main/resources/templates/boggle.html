@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Boggle Solver</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
+    <!-- Header with Emoticons -->
+    <h1 class="text-2xl font-bold text-center mb-4">🧩 Boggle Solver 🕵️‍♂️</h1>
+
+    <form action="/boggle" method="post" th:object="${grid}" class="space-y-4">
+        <!-- Grid Container -->
+        <div class="grid grid-cols-4 gap-2">
+            <input type="text" th:field="*{cell1}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell2}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell3}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell4}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell5}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell6}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell7}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell8}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell9}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell10}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell11}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell12}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell13}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell14}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell15}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+            <input type="text" th:field="*{cell16}" maxlength="1" required
+                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded-lg focus:ring focus:ring-blue-200">
+        </div>
+        <!-- Submit Button with Emoticon -->
+        <div class="text-center">
+            <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring focus:ring-blue-300">
+                Solve 🔍
+            </button>
+        </div>
+    </form>
+
+    <!-- Results Section with Emoticons -->
+    <div th:if="${results != null}" class="mt-6">
+        <h2 class="text-xl font-bold text-center mb-4">🎉 Found Words:</h2>
+        <div class="border border-gray-300 rounded-lg p-4 bg-gray-50 shadow">
+            <ul class="space-y-4">
+                <li th:each="entry : ${results}"
+                    class="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
+                    <div class="font-medium text-blue-600 flex items-center">
+                        📜 <span class="ml-2" th:text="${entry.key}"></span>
+                    </div>
+                    <div class="text-gray-600 text-sm mt-1" th:text="${entry.value}"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Validation Script -->
+<script>
+    function validateForm() {
+        const inputs = document.querySelectorAll('.grid-container input');
+        for (let input of inputs) {
+            const value = input.value.trim();
+            if (!value || value.length !== 1 || !/^[A-Za-z]$/.test(value)) {
+                alert("Each grid cell must contain exactly one letter (A-Z or a-z).");
+                input.focus();
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
