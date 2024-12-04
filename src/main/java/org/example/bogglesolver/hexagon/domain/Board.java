@@ -1,18 +1,18 @@
-package org.example.bogglesolver;
+package org.example.bogglesolver.hexagon.domain;
 import java.util.List;
 
-public class BoggleBoard {
-    private final List<List<Character>> board;
+public class Board {
+    private final List<List<String>> board;
 
-    public BoggleBoard(List<List<Character>> board) {
+    public Board(List<List<String>> board) {
         this.board = board;
     }
 
-    public Character get(int i, int j) {
+    public String get(int i, int j) {
         return board.get(i).get(j);
     }
 
-    public void set(int i, int j, Character c) {
+    public void set(int i, int j, String c) {
         board.get(i).set(j, c);
     }
 
@@ -21,7 +21,7 @@ public class BoggleBoard {
     }
 
     public int getColCount() {
-        return board.get(0).size();
+        return board.getFirst().size();
     }
 
     public boolean isValidCell(int i, int j) {

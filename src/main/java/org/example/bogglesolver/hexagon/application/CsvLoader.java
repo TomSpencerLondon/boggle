@@ -1,4 +1,4 @@
-package org.example.bogglesolver;
+package org.example.bogglesolver.hexagon.application;
 
 import org.springframework.stereotype.Component;
 
@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class CsvLoader {
@@ -17,7 +18,7 @@ public class CsvLoader {
     public void loadCsv() {
         dictionary = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(getClass().getResourceAsStream("/dictionary.csv")))) {
+                new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/dictionary.csv"))))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\t", 2);

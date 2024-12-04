@@ -1,4 +1,6 @@
-package org.example.bogglesolver;
+package org.example.bogglesolver.adapter.web.solve;
+
+import org.example.bogglesolver.hexagon.domain.Board;
 
 import java.util.List;
 
@@ -55,14 +57,14 @@ public class Grid {
     public void setCell16(String cell16) { this.cell16 = cell16; }
 
     // Convert to BoggleBoard
-    public BoggleBoard toBoggleBoard() {
-        List<List<Character>> boardData = List.of(
-                List.of(cell1.charAt(0), cell2.charAt(0), cell3.charAt(0), cell4.charAt(0)),
-                List.of(cell5.charAt(0), cell6.charAt(0), cell7.charAt(0), cell8.charAt(0)),
-                List.of(cell9.charAt(0), cell10.charAt(0), cell11.charAt(0), cell12.charAt(0)),
-                List.of(cell13.charAt(0), cell14.charAt(0), cell15.charAt(0), cell16.charAt(0))
+    public Board toBoggleBoard() {
+        List<List<String>> boardData = List.of(
+                List.of(cell1, cell2, cell3, cell4),
+                List.of(cell5, cell6, cell7, cell8),
+                List.of(cell9, cell10, cell11, cell12),
+                List.of(cell13, cell14, cell15, cell16)
         );
-        return new BoggleBoard(boardData);
+        return new Board(boardData);
     }
 }
 

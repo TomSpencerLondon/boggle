@@ -1,22 +1,24 @@
-package org.example.bogglesolver;
+package org.example.bogglesolver.adapter.web.solve;
 
+import org.example.bogglesolver.hexagon.domain.Board;
+import org.example.bogglesolver.hexagon.domain.Solver;
+import org.example.bogglesolver.hexagon.application.CsvLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
 @Controller
-public class BoggleController {
+public class SolverController {
 
     @Autowired
     private CsvLoader csvLoader;
 
     @Autowired
-    private BoggleSolver boggleSolver;
+    private Solver solver;
 
     @GetMapping("/")
     public String showBoggleBoard(Model model) {
@@ -33,10 +35,10 @@ public class BoggleController {
     @PostMapping("/boggle")
     public String solveBoggle(Grid grid, Model model) {
         try {
-            BoggleBoard board = grid.toBoggleBoard();
+            Board board = grid.toBoggleBoard();
 
             Set<String> dictionary = csvLoader.getDictionary().keySet();
-            Set<String> foundWords = boggleSolver.findWords(board, dictionary);
+            Set<String> foundWords = solver.findWords(board, dictionary);
 
             Map<String, String> results = new HashMap<>();
             for (String word : foundWords) {
@@ -50,25 +52,5 @@ public class BoggleController {
 
         return "boggle";
     }
-
-
-    private static BoggleBoard getBoggleBoard(String[] grid) {
-        if (grid == null || grid.length != 16) {
-            throw new IllegalArgumentException("The Boggle board must contain exactly 16 letters.");
-        }
-
-        List<List<Character>> boardData = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            List<Character> row = new ArrayList<>();
-            for (int j = 0; j < 4; j++) {
-                row.add(grid[i * 4 + j].toUpperCase().charAt(0));
-            }
-            boardData.add(row);
-        }
-        BoggleBoard board = new BoggleBoard(boardData);
-        return board;
-    }
-
-
 }
 
